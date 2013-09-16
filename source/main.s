@@ -1,11 +1,3 @@
-/******************************************************************************
-* main.s
-*  by Alex Chadwick
-*
-* A sample assembly code implementation of the ok01 operating system, that 
-* simply turns on the OK LED. 
-******************************************************************************/
-
 /*
 * .section is a directive to our assembler telling it to place this code first.
 * .globl is a directive to our assembler, that tells it to export this symbol
@@ -20,9 +12,8 @@
 .globl _start
 _start:
 
-/* 
-* This command loads the physical address of the GPIO region into r0.
-*/
+ 
+// This command loads the physical address of the GPIO region into r0.
 ldr r0,=0x20200000
 
 /*
@@ -40,20 +31,31 @@ lsl r1,#18
 * Set the GPIO function select.
 */
 str r1,[r0,#4]
-
+	
 /* 
 * Set the 16th bit of r1.
 */
 mov r1,#1
 lsl r1,#16
 
-/* 
-* Set GPIO 16 to low, causing the LED to turn on.
-*/
-str r1,[r0,#40]
+mov r2,#0
 
-/*
-* Loop over this forevermore
-*/
 loop$:
-b loop$
+	// Set GPIO 16 to low, causing the LED to turn on.
+	str r1,[r0,#40]
+	mov r2,#0x3F0000
+	wait1$:
+		sub r2,#1
+		cmp r2,#0
+		bne wait1$
+
+	// Set GPIO 16 to high (?), causing the LED to turn off.
+	str r1,[r0,#28]
+	mov r2,#0x3F0000
+	wait2$:
+		sub r2,#1
+		cmp r2,#0
+		bne wait2$
+
+	b loop$
+		
