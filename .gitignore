@@ -1,2 +1,4 @@
-kernel*
+kernel.list
+kernel.map
+kernel.img
 build/*
