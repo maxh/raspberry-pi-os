@@ -4,7 +4,7 @@
 * to the elf file. Convention dictates that the symbol _start is used for the 
 * entry point, so this all has the net effect of setting the entry point here.
 * Ultimately, this is useless as the elf itself is not used in the final 
-* result, and so the entry point really doesn't matter, but it aids clarity,
+* result, and so the entry point really does not matter, but it aids clarity,
 * allows simulators to run the elf, and also stops us getting a linker warning
 * about having no entry point. 
 */
@@ -27,18 +27,13 @@ ldr r0,=0x20200000
 mov r1,#1
 lsl r1,#18
 
-/*
-* Set the GPIO function select.
-*/
+
+// Set the GPIO function select.
 str r1,[r0,#4]
-	
-/* 
-* Set the 16th bit of r1.
-*/
+	 
+// Set the 16th bit of r1.
 mov r1,#1
 lsl r1,#16
-
-mov r2,#0
 
 loop$:
 	// Set GPIO 16 to low, causing the LED to turn on.
