@@ -15,14 +15,17 @@ BUILD = build/
 # The directory in which source files are stored.
 SOURCE = source/
 
+# The directory where output files are generated.
+OUT = out/
+
 # The name of the output file to generate.
-TARGET = kernel.img
+TARGET = $(OUT)kernel.img
 
 # The name of the assembler listing file to generate.
-LIST = kernel.list
+LIST = $(OUT)kernel.list
 
 # The name of the map file to generate.
-MAP = kernel.map
+MAP = $(OUT)kernel.map
 
 # The name of the linker script to use.
 LINKER = kernel.ld
@@ -52,6 +55,9 @@ $(BUILD)output.elf : $(OBJECTS) $(LINKER)
 # Rule to make the object files.
 $(BUILD)%.o: $(SOURCE)%.s $(BUILD)
 	$(ARMGNU)-as -I $(SOURCE) $< -o $@
+
+$(OUT):
+	mkdir $@
 
 $(BUILD):
 	mkdir $@
