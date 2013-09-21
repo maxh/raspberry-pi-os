@@ -24,6 +24,9 @@ loop$:
 	mov pinNum,#16
 	mov pinVal,#0
 	bl SetGpio
+	.unreq pinNum
+	.unreq pinVal
+
 	mov r2,#0x3F0000
 	wait1$:
 		sub r2,#1
@@ -31,14 +34,17 @@ loop$:
 		bne wait1$
 
 	// Turn the LED off.
+	pinNum .req r0
+	pinVal .req r1
+	mov pinNum,#16
 	mov pinVal,#1
 	bl SetGpio
 	.unreq pinNum
 	.unreq pinVal
+
 	mov r2,#0x3F0000
 	wait2$:
 		sub r2,#1
 		cmp r2,#0
 		bne wait2$
-
 b loop$
