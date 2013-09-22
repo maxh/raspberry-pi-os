@@ -6,7 +6,7 @@ b main
 
 .section .text
 main:
-	mov sp,#0x8000
+mov sp,#0x8000
 		
 // Enable output to the 'act' light.
 pinNum .req r0
