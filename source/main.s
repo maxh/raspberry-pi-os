@@ -19,18 +19,22 @@ bl SetGpioFunction
 
 pinNum .req r0
 pinVal .req r1
-
+delay .req r2
+	
 loop$:
 	// Turn the LED on.
 	mov pinNum,#16
 	mov pinVal,#0
 	bl SetGpio
-	bl Pause
+	mov delay,#0x3F0000
+	bl Timer
 
 	// Turn the LED off.
 	mov pinNum,#16
 	mov pinVal,#1
 	bl SetGpio
-	bl Pause
+	mov delay,#0x3F0000
+	bl Timer
 
 b loop$
+
