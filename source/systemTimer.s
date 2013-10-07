@@ -1,10 +1,12 @@
 .globl Pause
 Pause:
-	mov r3,#0x3F0000
+	push {r0}
+	mov r0,#0x3F0000
 	wait$:
-		sub r3,#1
-		cmp r3,#0
+		sub r0,#1
+		cmp r0,#0
 		bne wait$
+	pop {r0}
 	mov pc,lr
 
 .globl Timer
